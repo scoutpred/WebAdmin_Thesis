@@ -1,15 +1,8 @@
 <!DOCTYPE html>
-<<<<<<< ours
-<<<<<<< ours
-
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
 <html lang="en">
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="firebase.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +57,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="logout">
+				<a href="#" class="logout" onclick="signOut()">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
@@ -241,5 +234,37 @@
 	
 
 	<script src="script.js"></script>
+	<script>
+		// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDNt8pgzy44Nskp6WHUTSFPNu7KU7Dgjvo",
+  authDomain: "finalmlproj2.firebaseapp.com",
+  projectId: "finalmlproj2",
+  storageBucket: "finalmlproj2.appspot.com",
+  messagingSenderId: "1084420080026",
+  appId: "1:1084420080026:web:39ee1ca5b9d540fa90ba23"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+let db = firebase.firestore();
+const auth = firebase.auth();
+
+function signOut(){
+
+auth.signOut();
+alert("Signed Out");
+window.location.replace("loginindex.html");
+
+}
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {        
+    } else {
+     signOut()
+    }
+  });
+
+</script>
 </body>
 </html>
