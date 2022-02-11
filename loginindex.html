@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<html lang="en"><script type="module" src="https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="firebase.js"></script>
-<head>
+
+  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -16,15 +17,13 @@
       <img src="img/avatar.png" alt="">
       <h2>Login</h2>
       <div class="input-group">
-        <input type="text" name="loginUser" id="loginUser" required>
-        <label for="loginUser">User Name</label>
+        <input type="email" name="email" class="box" placeholder="Enter Email" id="loginUser">
+        <input type="password" name="password" class="box" placeholder="Enter Password" id="loginPassword">
       </div>
-      <div class="input-group">
-        <input type="password" name="loginPassword" id="loginPassword" required>
-        <label for="loginPassword">Password</label>
-      </div>
-      <input type="submit" value="Login" class="submit-btn">
-      <a href="#forgot-pw" class="forgot-pw">Forgot Password?</a>
+      <button type="submit" value="Login" class="submit-btn" onclick="signIn()">Log In</button>
+      <!--<a href="#forgot-pw" class="forgot-pw">Forgot Password?</a>
+
+      
     </form>
 
     <div id="forgot-pw">
@@ -35,9 +34,78 @@
           <input type="email" name="email" id="email" required>
           <label for="email">Email</label>
         </div>
-        <input type="submit" value="Submit" class="submit-btn">
+        <input type="submit" value="Submit" class="submit-btn" >
       </form>
     </div>
+    -->
   </div>
 </body>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDNt8pgzy44Nskp6WHUTSFPNu7KU7Dgjvo",
+    authDomain: "finalmlproj2.firebaseapp.com",
+    projectId: "finalmlproj2",
+    storageBucket: "finalmlproj2.appspot.com",
+    messagingSenderId: "1084420080026",
+    appId: "1:1084420080026:web:39ee1ca5b9d540fa90ba23"
+  };
+  
+  // Initialize Firebase
+  
+firebase.initializeApp(firebaseConfig);
+let db = firebase.firestore();
+const auth = firebase.auth();
+
+function signOut(){
+
+		auth.signOut();
+		alert("Signed Out");
+
+	}
+
+function signIn(){
+
+		var email = document.getElementById("loginUser");
+    
+		var password = document.getElementById("loginPassword");
+		firebase.auth().signInWithEmailAndPassword(email.value, password.value)
+.then(function(){
+  console.log("Email is " + email.value);
+})
+.catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+
+        if (errorCode === 'auth/user-not-found') {
+           
+        } else if (errorCode === 'auth/wrong-password') {
+           
+        }
+
+      // ... look at all the possible Error codes in the doc to handle the different cases
+
+});
+
+	}
+  
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      alert("Logged in!");
+    
+        window.location.replace("index.html");
+    } else {
+     signOut()
+    }
+  });
+  
+  
+  
+  </script>
+    
+
+  
+
 </html>
